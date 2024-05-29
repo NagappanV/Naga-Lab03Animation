@@ -1,42 +1,34 @@
 package com.example.lab03animation
 
-//import android.R
-import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var animationImageView: ImageView
+    private lateinit var button: Button
+    private var currentImageIndex = 0
+    private val imageIds = arrayOf(
+        R.drawable.r0,
+        R.drawable.r1,
+        R.drawable.r2,
+        R.drawable.r3,
+        R.drawable.r4,
+    )
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
-        // Get references to ImageVIew elements in the layout
-//        val backgroundimageView = findViewById<ImageView>(R.id.backgroundimageView)
-        val animationimageView = findViewById<ImageView>(R.id.animationimageView)
+        animationImageView = findViewById(R.id.animationimageView)
+        button = findViewById(R.id.button2)
 
-//        // Start the background animation
-//        val testanimationDrawable = backgroundimageView.background as AnimationDrawable
-//        testanimationDrawable.start()
-
-        // Start the animation for the other miages aft a delay
-        animationimageView.postDelayed({
-            animationimageView.visibility = ImageView.VISIBLE
-            animationimageView.setBackgroundResource(R.drawable.animation_list)
-            val animationDrawable = animationimageView.background as AnimationDrawable
-            animationDrawable.start()
-        }, 1000)
-
-//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-//            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-//            insets
-//        }
-
+        button.setOnClickListener {
+            currentImageIndex = (currentImageIndex + 1) % imageIds.size
+            animationImageView.setImageResource(imageIds[currentImageIndex])
+        }
     }
 }
